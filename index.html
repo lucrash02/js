@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="estilos.css" />
+  </head>
+  <body>
+    <h1>DE COMPRAS</h1>
+    <div id="productos">
+      <h2>Productos</h2>
+      <ul>
+        <li>
+          <span> fideos - $1000 </span>
+          <button class="agregar-carro" data-name="fideos" data-price="1000">
+            Agregar
+          </button>
+        </li>
+        <li>
+          <span>arroz - $900</span>
+          <button class="agregar-carro" data-name="arroz" data-price="900">
+            Agregar
+          </button>
+        </li>
+        <li>
+          <span>Leche - $1300</span>
+          <button class="agregar-carro" data-name="Leche" data-price="1300">
+            Agregar
+          </button>
+        </li>
+        <li>
+          <span>coca-cola - $2100</span>
+          <button class="agregar-carro" data-name="coca-cola" data-price="2100">
+            Agregar
+          </button>
+        </li>
+        <li>
+          <span>oreo - $2000</span>
+          <button class="agregar-carro" data-name="oreo" data-price="2000">
+            Agregar
+          </button>
+        </li>
+        <li>
+          <span>yerba - $3000</span>
+          <button class="agregar-carro" data-name="yerba" data-price="3000">
+            Agregar
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div id="carrito">
+      <h2>Carrito</h2>
+      <ul id="items-carro"></ul>
+      <p>Total: $<span id="total">0.00</span></p>
+    </div>
+
+    <script src="./js/main.js"></script>
+  </body>
+</html>
