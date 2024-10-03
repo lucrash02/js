@@ -11,12 +11,37 @@ body {
 }
 
 h1 {
+  display: flex;
   margin-top: 20px;
   color: white;
+  text-align: left;
   font-size: 70px;
   background: #07090c;
   border-radius: 10px;
-  padding: 10px;
+  padding: 10px 650px 10px 10px;
+}
+#anim-1{
+  animation: luzIntermitente 3s infinite; /* Nombre de la animación, duración, repetición */
+  color: rgb(250, 250, 250); /* Color del texto */
+  text-align: center; /* Centrar el texto */
+  font-size: 3em; /* Tamaño de fuente */
+}
+@keyframes luzIntermitente {
+  0% {
+    opacity: 1; /* Totalmente visible */
+  }
+  50% {
+    opacity: 0; /* Invisible */
+  }
+  100% {
+    opacity: 1; /* Vuelve a ser visible */
+  }
+}
+h2{
+  color: #fff;
+  background-color: #05476d;
+  padding: 10px 60px 10px 10px;
+  border-radius: 10px;
 }
 
 #productos,#carrito {
@@ -52,6 +77,20 @@ button {
   cursor: pointer;
   border: 2px solid #3498db;
 }
+@keyframes botonPresionado {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9); /* Reduce el tamaño */
+  }
+  100% {
+    transform: scale(1); /* Regresa a su tamaño original */
+  }
+}
+button.pressed {
+  animation: botonPresionado 0.3s ease; /* Añadir la animación */
+}
 
 button:hover {
   border-color: #2980b9;
@@ -64,4 +103,19 @@ button:active {
   border-color: #1f77d8;
   transform: scale(0.98);
 }
+#mensaje-compra {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 217, 255, 0.8); /* Fondo semitransparente */
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  text-align: center;
+  display: none; /* Inicialmente oculto */
+}
+
+
 
