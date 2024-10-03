@@ -1,27 +1,26 @@
-// Inicializar el carrito desde localStorage
-let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-// Cargar productos desde el archivo JSON
-fetch('./datos.json')
-  .then(response => {
+fetch("./datos.json")
+  .then((response) => {
     if (!response.ok) {
-      throw new Error('Error al cargar los productos');
+      throw new Error("Error al cargar los productos");
     }
     return response.json();
   })
-  .then(data => {
+  .then((data) => {
     inicializarProductos(data);
-    actualizarCarrito(); // Mostrar el carrito al cargar los productos
+    actualizarCarrito();
   })
-  .catch(error => console.error('Error:', error));
+  .catch((error) => console.error("Error:", error));
 
-// Función para inicializar productos en el DOM
 function inicializarProductos(productos) {
-  const productosContainer = document.getElementById('productos').querySelector('ul');
-  productosContainer.innerHTML = '';
+  const productosContainer = document
+    .getElementById("productos")
+    .querySelector("ul");
+  productosContainer.innerHTML = "";
 
-  productos.forEach(producto => {
-    const li = document.createElement('li');
+  productos.forEach((producto) => {
+    const li = document.createElement("li");
     li.innerHTML = `
       <span>${producto.nombre} - $${producto.precio}</span>
       <button class="agregar-carro" data-name="${producto.nombre}" data-price="${producto.precio}">
@@ -31,25 +30,24 @@ function inicializarProductos(productos) {
     productosContainer.appendChild(li);
   });
 
-  document.querySelectorAll(".agregar-carro").forEach(boton => {
+  document.querySelectorAll(".agregar-carro").forEach((boton) => {
     boton.addEventListener("click", (event) => {
       const nombre = event.target.getAttribute("data-name");
       const precio = parseFloat(event.target.getAttribute("data-price"));
 
-      const productoEnCarrito = carrito.find(item => item.nombre === nombre);
-      
+      const productoEnCarrito = carrito.find((item) => item.nombre === nombre);
+
       if (productoEnCarrito) {
         productoEnCarrito.unidades++;
       } else {
         carrito.push({ nombre, precio, unidades: 1 });
       }
-      
+
       actualizarCarrito();
     });
   });
 }
 
-// Función para actualizar el carrito en el DOM
 function actualizarCarrito() {
   const itemsCarro = document.getElementById("items-carro");
   itemsCarro.innerHTML = "";
@@ -59,7 +57,7 @@ function actualizarCarrito() {
   carrito.forEach((item) => {
     const li = document.createElement("li");
     li.textContent = `${item.nombre} - $${item.precio} x ${item.unidades}`;
-    
+
     const btnSumar = document.createElement("button");
     btnSumar.textContent = "+";
     btnSumar.onclick = () => {
@@ -72,7 +70,7 @@ function actualizarCarrito() {
     btnRestar.onclick = () => {
       item.unidades--;
       if (item.unidades <= 0) {
-        carrito = carrito.filter(i => i.nombre !== item.nombre);
+        carrito = carrito.filter((i) => i.nombre !== item.nombre);
       }
       actualizarCarrito();
     };
@@ -80,7 +78,7 @@ function actualizarCarrito() {
     const btnEliminar = document.createElement("button");
     btnEliminar.textContent = "Eliminar";
     btnEliminar.onclick = () => {
-      carrito = carrito.filter(i => i.nombre !== item.nombre);
+      carrito = carrito.filter((i) => i.nombre !== item.nombre);
       actualizarCarrito();
     };
 
@@ -93,24 +91,24 @@ function actualizarCarrito() {
   });
 
   document.getElementById("total").textContent = total.toFixed(2);
-  localStorage.setItem('carrito', JSON.stringify(carrito));
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 
-  // Agregar evento al botón de compra
   document.getElementById("boton-comprar").onclick = () => {
     const mensajeCompra = document.getElementById("mensaje-compra");
     if (carrito.length === 0) {
       mensajeCompra.textContent = "Tu carrito está vacío.";
-      mensajeCompra.style.color = "red"; // Rojo para advertencia
+      mensajeCompra.style.color = "red";
     } else {
-      mensajeCompra.textContent = `Compra realizada con éxito! Total: $${total.toFixed(2)}`;
-      mensajeCompra.style.color = "green"; // Verde para éxito
-      carrito = []; // Limpiar el carrito después de la compra
-      actualizarCarrito(); // Actualizar la vista del carrito
+      mensajeCompra.textContent = `Compra realizada con éxito! Total: $${total.toFixed(
+        2
+      )}`;
+      mensajeCompra.style.color = "green";
+      carrito = [];
+      actualizarCarrito();
     }
-    
-    mensajeCompra.style.display = "block"; // Mostrar el mensaje
-    
-    // Ocultar el mensaje después de 3 segundos
+
+    mensajeCompra.style.display = "block";
+
     setTimeout(() => {
       mensajeCompra.style.display = "none";
     }, 3000);
